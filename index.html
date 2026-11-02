@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Baby Medicine Checklist</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#fff0f5; --card:#ffffff; --txt:#5a3a4a; --deep:#e0577d; --pink:#ff8fab; --shadow:#f3d3de; --track:#ffd6e3;
+  --c1:#ffd9c2; --c2:#bfe3fa; --c3:#bfebdd; --c4:#c9b6f2; --c5:#fff1b8; --c6:#ffc8dd;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#2a1822; --card:#3a2230; --txt:#ffe6ee; --deep:#ff8fab; --pink:#e0577d; --shadow:#1d0f16; --track:#4b2b3c;
+    --c1:#a8704f; --c2:#4b86ad; --c3:#4f9c85; --c4:#7d68b8; --c5:#b39a3c; --c6:#b5557a;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#2a1822; --card:#3a2230; --txt:#ffe6ee; --deep:#ff8fab; --pink:#e0577d; --shadow:#1d0f16; --track:#4b2b3c;
+  --c1:#a8704f; --c2:#4b86ad; --c3:#4f9c85; --c4:#7d68b8; --c5:#b39a3c; --c6:#b5557a; color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--txt);font-family:"Nunito","Trebuchet MS",system-ui,-apple-system,sans-serif;min-height:100vh;overflow-x:hidden}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 40px}
+.hero{background:linear-gradient(135deg,var(--pink),#ffb3c7);border-radius:30px;padding:26px 16px;text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:0 6px 0 var(--shadow)}
+.hero h1{margin:0;font-size:2rem;line-height:1.15;letter-spacing:.5px;text-shadow:0 2px 0 rgba(0,0,0,.08)}
+.hero .sub{margin-top:8px;font-weight:700;opacity:.95}
+.hero .h{position:absolute;font-size:1.4rem;animation:float 3s ease-in-out infinite}
+.h1{left:14px;top:12px}.h2{right:16px;top:20px;animation-delay:.6s!important}.h3{right:40px;bottom:10px;animation-delay:1.2s!important}.h4{left:34px;bottom:12px;animation-delay:1.8s!important}
+@keyframes float{50%{transform:translateY(-6px) scale(1.1)}}
+.bar{margin:18px 0 6px;background:var(--track);border-radius:999px;height:22px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--deep));border-radius:999px;transition:width .4s}
+.stat{display:flex;justify-content:space-between;font-weight:800;font-size:.95rem;color:var(--deep);margin-bottom:14px}
+.card{background:var(--card);border:3px solid var(--bc);border-radius:22px;padding:14px;margin-bottom:14px;box-shadow:0 4px 0 var(--shadow);transition:transform .2s,opacity .3s}
+.card.done{opacity:.8}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.num{width:44px;height:44px;border-radius:50%;background:var(--bc);display:grid;place-items:center;font-weight:900;font-size:1.2rem;flex:none;color:#4a2a3a}
+.t{font-weight:900;font-size:1.2rem}
+.s{color:var(--deep);font-weight:700;font-size:.88rem}
+.ok{margin-left:auto;font-size:1.6rem;transform:scale(0);transition:transform .3s cubic-bezier(.3,1.8,.5,1)}
+.card.done .ok{transform:scale(1)}
+.doses{display:flex;gap:10px}
+.dose{flex:1;border:2.5px solid var(--deep);background:transparent;color:var(--txt);border-radius:16px;padding:10px 4px;font:inherit;font-weight:800;font-size:.85rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;transition:transform .15s,background .2s}
+.dose:active{transform:scale(.94)}
+.dose .bx{width:30px;height:30px;border-radius:9px;border:2.5px solid var(--deep);display:grid;place-items:center;font-size:1.1rem;color:#fff}
+.dose.on{background:var(--deep);color:#fff}
+.dose.on .bx{background:#fff;color:var(--deep)}
+.msg{text-align:center;font-weight:900;font-size:1.15rem;color:var(--deep);min-height:1.6em;margin:6px 0 4px}
+.foot{text-align:center;margin-top:10px}
+button.reset{font:inherit;font-weight:800;color:var(--deep);background:transparent;border:2.5px dashed var(--deep);border-radius:999px;padding:9px 20px;cursor:pointer}
+.tot{display:inline-block;background:var(--deep);color:#fff;border-radius:999px;padding:8px 20px;font-weight:900;margin-bottom:12px}
+.love{margin-top:14px;color:var(--deep);font-style:italic;font-weight:700}
+.pop{position:fixed;pointer-events:none;font-size:1.6rem;animation:pop 1.6s ease-out forwards;z-index:9}
+@keyframes pop{to{transform:translateY(-220px) rotate(40deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="h h1">💗</span><span class="h h2">✨</span><span class="h h3">💗</span><span class="h h4">✨</span>
+    <h1>Baby Medicine<br>Checklist</h1>
+    <div class="sub" id="date"></div>
+  </div>
+  <div class="bar"><i id="fill"></i></div>
+  <div class="stat"><span>Today’s doses</span><span id="count">0 / 0</span></div>
+  <div class="msg" id="msg"></div>
+  <div id="list"></div>
+  <div class="foot">
+    <div class="tot">Total: 6 medicines</div><br>
+    <button class="reset" id="reset" type="button">Reset for a new day</button>
+    <div class="love">Get well soon sundhari babyyy 💕</div>
+  </div>
+</div>
+<script>
+(function(){
+  var M=["Morning","Afternoon","Night"];
+  var items=[
+    {t:"Syrup",s:"3 times a day",d:M,c:"--c1"},
+    {t:"Drops",s:"3 times a day",d:M,c:"--c2"},
+    {t:"Before food",s:"Morning & Night",d:["Morning","Night"],c:"--c3"},
+    {t:"After food",s:"3 times",d:M,c:"--c4"},
+    {t:"After food",s:"Morning & Night",d:["Morning","Night"],c:"--c5"},
+    {t:"Night",s:"Bedtime dose",d:["Night"],c:"--c6"}
+  ];
+  var now=new Date();
+  var key="bmc-"+now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
+  document.getElementById("date").textContent=now.toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});
+  var state={};
+  try{var raw=localStorage.getItem(key);if(raw)state=JSON.parse(raw)||{};}catch(e){state={};}
+  function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch(e){}}
+  var total=items.reduce(function(a,i){return a+i.d.length},0);
+  var list=document.getElementById("list");
+  function render(){
+    list.innerHTML="";
+    var done=0;
+    items.forEach(function(it,i){
+      var n=0;
+      var card=document.createElement("div");card.className="card";card.style.setProperty("--bc","var("+it.c+")");
+      var top='<div class="top"><div class="num">'+(i+1)+'</div><div><div class="t">'+it.t+'</div><div class="s">'+it.s+'</div></div><div class="ok">🎉</div></div>';
+      var doses=document.createElement("div");doses.className="doses";
+      it.d.forEach(function(name,j){
+        var id=i+"-"+j,on=!!state[id];if(on){n++;done++;}
+        var b=document.createElement("button");b.type="button";b.className="dose"+(on?" on":"");
+        b.setAttribute("aria-pressed",on);
+        b.innerHTML='<span class="bx">'+(on?"✓":"")+'</span>'+name;
+        b.onclick=function(e){state[id]=!state[id];save();render();if(state[id])burst(e);};
+        doses.appendChild(b);
+      });
+      card.innerHTML=top;card.appendChild(doses);
+      if(n===it.d.length)card.classList.add("done");
+      list.appendChild(card);
+    });
+    document.getElementById("count").textContent=done+" / "+total;
+    document.getElementById("fill").style.width=(done/total*100)+"%";
+    document.getElementById("msg").textContent=done===total?"All done for today! 🎉💖":(done?"Keep going, you’re doing great!":"");
+  }
+  function burst(e){
+    var em=["💗","✨","💕","⭐"];
+    for(var k=0;k<5;k++){
+      var s=document.createElement("span");s.className="pop";s.textContent=em[k%4];
+      s.style.left=(e.clientX-12+(k-2)*18)+"px";s.style.top=(e.clientY-12)+"px";
+      document.body.appendChild(s);setTimeout(function(x){x.remove();}.bind(null,s),1600);
+    }
+  }
+  document.getElementById("reset").onclick=function(){
+    if(confirm("Clear all ticks for today?")){state={};save();render();}
+  };
+  render();
+})();
+</script>
+</body>
+</html>
