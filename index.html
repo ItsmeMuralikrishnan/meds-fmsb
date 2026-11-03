@@ -98,11 +98,15 @@ button.reset{font:inherit;font-weight:800;color:var(--deep);background:transpare
     {t:"After food",s:"Morning & Night",d:["Morning","Night"],c:"--c5"},
     {t:"Night",s:"Bedtime dose",d:["Night"],c:"--c6"}
   ];
-  var now=new Date();
-  var key="bmc-"+now.getFullYear()+"-"+(now.getMonth()+1)+"-"+now.getDate();
-  document.getElementById("date").textContent=now.toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});
-  var state={};
-  try{var raw=localStorage.getItem(key);if(raw)state=JSON.parse(raw)||{};}catch(e){state={};}
+  var key="",state={};
+  function dayKey(){var d=new Date();return "bmc-"+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
+  function loadDay(){
+    key=dayKey();
+    document.getElementById("date").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});
+    state={};
+    try{var raw=localStorage.getItem(key);if(raw)state=JSON.parse(raw)||{};}catch(e){state={};}
+  }
+  loadDay();
   function save(){try{localStorage.setItem(key,JSON.stringify(state));}catch(e){}}
   var total=items.reduce(function(a,i){return a+i.d.length},0);
   var list=document.getElementById("list");
@@ -156,8 +160,12 @@ button.reset{font:inherit;font-weight:800;color:var(--deep);background:transpare
     }
   }
   document.getElementById("reset").onclick=function(){
-    if(confirm("Clear all ticks for today?")){state={};save();render();}
+    if(confirm("Clear all ticks for today?")){loadDay();state={};save();render();}
   };
+  function checkDay(){if(dayKey()!==key){loadDay();render();}}
+  document.addEventListener("visibilitychange",function(){if(!document.hidden)checkDay();});
+  window.addEventListener("focus",checkDay);
+  setInterval(checkDay,60000);
   render();
 })();
 </script>
