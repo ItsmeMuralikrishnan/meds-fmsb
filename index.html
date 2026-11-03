@@ -60,6 +60,7 @@ body{background:var(--bg);color:var(--txt);font-family:"Nunito","Trebuchet MS",s
 .banner{background:linear-gradient(135deg,var(--pink),var(--deep));color:#fff;border-radius:26px;padding:22px 16px;text-align:center;margin-bottom:14px;box-shadow:0 6px 0 var(--shadow)}
 .banner h2{margin:0 0 6px;font-size:1.6rem}
 .banner p{margin:4px 0;font-weight:800}
+.banner img{display:block;max-width:100%;max-height:340px;margin:14px auto 0;border-radius:18px;border:4px solid #fff;object-fit:cover}
 .foot{text-align:center;margin-top:10px}
 button.reset{font:inherit;font-weight:800;color:var(--deep);background:transparent;border:2.5px dashed var(--deep);border-radius:999px;padding:9px 20px;cursor:pointer}
 .tot{display:inline-block;background:var(--deep);color:#fff;border-radius:999px;padding:8px 20px;font-weight:900;margin-bottom:12px}
@@ -148,9 +149,13 @@ button.reset{font:inherit;font-weight:800;color:var(--deep);background:transpare
       var last=0;
       Object.keys(state).forEach(function(k){if(typeof state[k]==="number"&&state[k]>last)last=state[k];});
       bn.hidden=false;
-      bn.innerHTML="<h2>All done! 🎉💖</h2><p>"+new Date().toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"})+"</p><p>All "+total+" doses taken"+(last?" · finished at "+fmt(last):"")+"</p>";
+      bn.innerHTML="<h2>All done! 🎉💖</h2><p>"+new Date().toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"})+"</p><p>All "+total+" doses taken"+(last?" · finished at "+fmt(last):"")+"</p>"+'<img src="photo.jpg" data-i="0" alt="" onerror="nextPhoto(this)">';
     }else{bn.hidden=true;}
   }
+  window.nextPhoto=function(img){
+    var l=["photo.jpg","IMG_1154.jpeg","IMG_1154.jpg","IMG_1154.JPG","IMG_1154.JPEG"],i=+(img.dataset.i||0)+1;
+    if(i<l.length){img.dataset.i=i;img.src=l[i];}else{img.remove();}
+  };
   function burst(e){
     var em=["💗","✨","💕","⭐"];
     for(var k=0;k<5;k++){
