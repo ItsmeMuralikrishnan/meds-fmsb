@@ -99,7 +99,7 @@ button.reset{font:inherit;font-weight:800;color:var(--deep);background:transpare
     {t:"After food",s:"Morning & Night",d:["Morning","Night"],c:"--c5"},
     {t:"Night",s:"Bedtime dose",d:["Night"],c:"--c6"}
   ];
-  var key="",state={};
+  var key="",state={},wasComplete=null;
   function dayKey(){var d=new Date();return "bmc-"+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
   function loadDay(){
     key=dayKey();
@@ -151,6 +151,12 @@ button.reset{font:inherit;font-weight:800;color:var(--deep);background:transpare
       bn.hidden=false;
       bn.innerHTML="<h2>All done! 🎉💖</h2><p>"+new Date().toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"})+"</p><p>All "+total+" doses taken"+(last?" · finished at "+fmt(last):"")+"</p>"+'<img src="photo.jpg" data-i="0" alt="" onerror="nextPhoto(this)">';
     }else{bn.hidden=true;}
+    var complete=(done===total);
+    if(complete&&wasComplete===false){
+      bn.style.scrollMarginTop="12px";
+      setTimeout(function(){bn.scrollIntoView({behavior:"smooth",block:"start"});},200);
+    }
+    wasComplete=complete;
   }
   window.nextPhoto=function(img){
     var l=["photo.jpg","IMG_1154.jpeg","IMG_1154.jpg","IMG_1154.JPG","IMG_1154.JPEG"],i=+(img.dataset.i||0)+1;
