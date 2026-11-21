@@ -83,7 +83,7 @@ button.reset{font:inherit;font-weight:800;color:var(--deep);background:transpare
   <div class="msg" id="msg"></div>
   <div id="list"></div>
   <div class="foot">
-    <div class="tot">Total: 6 medicines</div><br>
+    <div class="tot">Total: 1 medicine</div><br>
     <button class="reset" id="reset" type="button">Reset for a new day</button>
     <div class="love">Get well soon sundhari babyyy 💕</div>
   </div>
@@ -92,15 +92,10 @@ button.reset{font:inherit;font-weight:800;color:var(--deep);background:transpare
 (function(){
   var M=["Morning","Afternoon","Night"];
   var items=[
-    {t:"Syrup",s:"3 times a day",d:M,c:"--c1"},
-    {t:"Drops",s:"3 times a day",d:M,c:"--c2"},
-    {t:"Before food",s:"Morning & Night",d:["Morning","Night"],c:"--c3"},
-    {t:"After food",s:"3 times",d:M,c:"--c4"},
-    {t:"After food",s:"Morning & Night",d:["Morning","Night"],c:"--c5"},
-    {t:"Night",s:"Bedtime dose",d:["Night"],c:"--c6"}
+    {t:"After food",s:"Night only",d:["Night"],c:"--c4"}
   ];
   var key="",state={},wasComplete=null;
-  function dayKey(){var d=new Date();return "bmc-"+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
+  function dayKey(){var d=new Date();return "bmc3-"+d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();}
   function loadDay(){
     key=dayKey();
     document.getElementById("date").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});
